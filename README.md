@@ -5,8 +5,45 @@ Signal Processing designed for STM32f411re MCU for a complete medical device pro
 
 This repository contains the design and implementation of a **PPG Signal Processing Device** with heart rate (HR) and SpO2 computation, battery alarm, and data logging functionality. The project is structured into modular components, represented in a multi-level DeMarco functional diagram.
 
+A modular implementation of a **PPG-based signal processing system** running on an STM32F411RE MCU, featuring:
+
+- Digital filtering  
+- Heart Rate (HR) computation  
+- SpO₂ computation  
+- Battery level monitoring & alarm  
+- Data logging to SD card  
+- Extensible architecture for WiFi/MQTT/WebApp integration  
+
+The architecture follows a **multi-level DeMarco functional diagram** for clarity and future scalability.
+
 ---
 
+## 🛠 Development Tools
+
+This project is developed using the following hardware and software stack:
+
+### **Hardware**
+- **STM32F411RE** (Nucleo board) — main MCU for signal processing  
+- **PPG Sensor** (MAX30102 or compatible, planned)  
+- **SEGGER J-Link** — debugging & J-Scope signal visualization  
+- **SD Card Module via SPI** — data logging  
+
+### **Software**
+- **STM32CubeMX** — peripheral initialization  
+- **VS Code + Cortex-Debug + ARM Toolchain** — development environment  
+- **Python** — synthetic data generation and offline analysis  
+- **SEGGER J-Scope** — real-time visualization of filtered signal  
+- **draw.io / diagrams.net** — system diagrams  
+
+---
+
+## 📈 Real-Time Filtering Preview (STM32 + J-Scope)
+
+Example of filtered PPG waveform captured during firmware testing:
+
+![PPG Filtered Signal](images/jscope_filtered_signal.png)
+
+---
 ## Diagrams
 
 ### Level 0: System Context
