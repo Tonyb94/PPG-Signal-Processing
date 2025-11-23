@@ -59,17 +59,19 @@ Illustrates the three main modules of the system:
 
 **Data Flow:**  
 
-## Folder Structure ##
+## Project Structure
 
+```
 PPG-Device/
 ├── diagrams/
-│ ├── level0_system_context.svg
-│ ├── level1_main_processes.svg
-│ ├── level2_hr_spo2.svg
-│ ├── level2_battery_alarm.svg
-│ └── level2_data_logger.svg
+│   ├── level0_system_context.svg
+│   ├── level1_main_processes.svg
+│   ├── level2_hr_spo2.svg
+│   ├── level2_battery_alarm.svg
+│   └── level2_data_logger.svg
 ├── src/
-│ ├── hr_spo2_computation/
-│ ├── battery_alarm/
-│ └── data_logger/
+│   ├── hr_spo2_computation/
+│   ├── battery_alarm/
+│   └── data_logger/
 └── README.md
+```
