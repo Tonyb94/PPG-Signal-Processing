@@ -31,7 +31,7 @@ This project is developed using the following hardware and software stack:
 ### **Software**
 - **STM32CubeMX** — peripheral initialization  
 - **VS Code + Cortex-Debug + ARM Toolchain** — development environment  
-- **Python** — synthetic data generation and offline analysis  
+- **Python 3.9.13** — synthetic data generation and offline analysis  
 - **SEGGER J-Scope** — real-time visualization of filtered signal  
 - **draw.io / diagrams.net** — system diagrams  
 
@@ -42,6 +42,25 @@ This project is developed using the following hardware and software stack:
 Example of filtered PPG waveform captured during firmware testing:
 
 ![PPG Filtered Signal](images/jscope_filtered_signal.png)
+
+---
+
+---
+
+## 🏗 Getting Started
+
+### 1. STM32 Project Build
+
+```bash
+# Navigate to project folder
+cd HR_SPO2_computing_dev
+
+# Clean previous builds (optional)
+rm -rf build/Debug build/SimulatedDebug
+
+# Build project
+# - If using CubeIDE: Open project -> Build
+# - If using Makefile/CMake: make all
 
 ---
 ## Diagrams
