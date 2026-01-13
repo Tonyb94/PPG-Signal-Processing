@@ -52,13 +52,71 @@ Example of filtered PPG waveform captured during firmware testing:
 # Navigate to project folder
 cd HR_SPO2_computing_dev
 
-# Clean previous builds (optional)
-rm -rf build/Debug build/SimulatedDebug
+## Build project
 
-# Build project
-# - If using CubeIDE: Open project -> Build
-# - If using Makefile/CMake: make all
+# 1. cmd prompt
+
+# - If you want to compile in Simulation
+    cmake --build --preset SimulatedDebug
+
+# - If If you want to compile
+    cmake --build --preset Debug
+
+# 2.  VScode 
+
+# - Command Palette
+
+# - CMake: Select Configure Preset
+
+# - Cmake_ Configure Preset
+
+# - play build
+
+# - NB.: Use lounch.json inside .vscode to Debug (Do not overite !!)
 ```
+# Debug
+
+ - Op1: Download MCU drivers for Jlink and Jlink compatible tools for STM32F411RE
+
+ - Op2: Download STLINK and STM32CubeIDE
+
+ - Download arm-cortex toolchain as compiler
+
+# For VSCODE + Op1 suggestion
+
+ - Download:
+    - STM32CubeIDE extention for vscode 
+    - C/C++ Intellisense
+    - CMake Tools
+    - Cortex - Debug
+
+ - Create workspace in vscode inside "HR_SPO2_computing_dev" folder
+
+ - Open cmd prompt in the MCU project is located and type
+   ```bash
+   # Windows
+   code HR_SPO2_computing_dev.worspace
+   ``` 
+   to open the project in vscode
+     
+
+### PYTHON ENVIRONMENT
+
+```bash
+# - Install Python 3.9.13
+
+# - create a venv 
+    python -m venv SPO2_project_venv venv 
+
+# - activate venv
+    cd SPO2_project_venv\Scripts
+    activate
+
+# install requirements
+    pip install -r requirements.txt
+
+```
+
 ## Diagrams
 
 ### Level 0: System Context
@@ -96,7 +154,7 @@ Illustrates the three main modules of the system:
 
 **Components:**  
 - **Battery Monitor** – reads battery voltage level.  
-- **Threshold Detection** – compares current voltage with predefined thresholds.  
+- **Threshold Detection** – compares current voltage with predefined threshold.  
 - **Alert Generation** – triggers notifications to the user or device interface when battery is low.
 
 ---
