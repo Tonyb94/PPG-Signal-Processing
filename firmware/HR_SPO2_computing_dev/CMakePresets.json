@@ -1,0 +1,64 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "hidden": false,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "toolchainFile": "${sourceDir}/cmake/gcc-arm-none-eabi.cmake",
+            "cacheVariables": {
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "SimulatedDebug",
+            "inherits": "Debug",
+            "displayName": "Debug (Simulation)",
+            "description": "Debug build with simulation enabled",
+            "cacheVariables": {
+                "USE_SIMULATION": "ON"
+            }
+        },
+        {
+            "name": "SimulatedRelease",
+            "inherits": "Release",
+            "displayName": "Release (Simulation)",
+            "description": "Release build with simulation enabled",
+            "cacheVariables": {
+                "USE_SIMULATION": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Debug",
+            "configurePreset": "Debug"
+        },
+        {
+            "name": "Release",
+            "configurePreset": "Release"
+        },
+        {
+            "name": "SimulatedDebug",
+            "configurePreset": "SimulatedDebug"
+        },
+        {
+            "name": "SimulatedRelease",
+            "configurePreset": "SimulatedRelease"
+        }
+    ]
+}

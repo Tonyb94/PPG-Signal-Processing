@@ -1,0 +1,15 @@
+# Build directory
+build/
+
+# IDE / tools
+.settings/
+
+# CubeMX
+.mxproject
+Makefile
+
+# Output
+*.elf
+*.map
+*.hex
+*.bin
