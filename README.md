@@ -44,9 +44,6 @@ Example of filtered PPG waveform captured during firmware testing:
 ![PPG Filtered Signal](images/jscope_filtered_signal.png)
 
 ---
-
----
-
 ## 🏗 Getting Started
 
 ### 1. STM32 Project Build
@@ -61,8 +58,7 @@ rm -rf build/Debug build/SimulatedDebug
 # Build project
 # - If using CubeIDE: Open project -> Build
 # - If using Makefile/CMake: make all
-
----
+```
 ## Diagrams
 
 ### Level 0: System Context
