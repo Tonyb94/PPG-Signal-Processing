@@ -68,7 +68,9 @@ cd HR_SPO2_computing_dev
 
 # - CMake: Select Configure Preset
 
-# - Cmake_ Configure Preset
+    # choose SimulatedDebug or Debug
+
+# - Cmake: Configure Preset
 
 # - play build
 
@@ -169,19 +171,52 @@ Illustrates the three main modules of the system:
 
 **Data Flow:**  
 
-## Project Structure
+## Project Structure of STM32 MCU
 
 ```
-PPG-Device/
-├── diagrams/
-│   ├── level0_system_context.svg
-│   ├── level1_main_processes.svg
-│   ├── level2_hr_spo2.svg
-│   ├── level2_battery_alarm.svg
-│   └── level2_data_logger.svg
-├── src/
-│   ├── hr_spo2_computation/
-│   ├── battery_alarm/
-│   └── data_logger/
-└── README.md
+HR_SPO2_computing_dev/
+├───.vscode
+├───cmake/
+│   └───stm32cubemx
+├───Core/
+│   ├───Inc
+│   │       battery_monitor.h
+│   │       FreeRTOSConfig.h
+│   │       main.h
+│   │       ppg_processing.h
+│   │       stm32f4xx_hal_conf.h
+│   │       stm32f4xx_it.h
+│   └───Src
+│           battery_monitor.c
+│           freertos.c
+│           main.c
+│           ppg_processing.c
+│           stm32f4xx_hal_msp.c
+│           stm32f4xx_hal_timebase_tim.c
+│           stm32f4xx_it.c
+│           syscalls.c
+│           sysmem.c
+│           system_stm32f4xx.c
+├───Drivers/
+│   ├───CMSIS/
+│   │   ├───Device/ST/STM32F4xx
+│   │   │   ├───Include
+│   │   │   └───Source/Templates
+│   │   └───Include
+│   └───STM32F4xx_HAL_Driver/
+│       ├───Inc
+│       └───Src
+├───FATFS/
+│   ├───App
+│   └───Target
+└───Middlewares/
+    └───Third_Party
+        ├───FatFs/src/option
+        └───FreeRTOS/Source
+            ├───CMSIS_RTOS_V2
+            ├───include
+            └───portable
+                ├───GCC/ARM_CM4F
+                └───MemMang
+
 ```
