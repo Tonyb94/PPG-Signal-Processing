@@ -1,0 +1,172 @@
+\doxysection{Core/\+Src/ppg\+\_\+processing.c File Reference}
+\hypertarget{ppg__processing_8c}{}\label{ppg__processing_8c}\index{Core/Src/ppg\_processing.c@{Core/Src/ppg\_processing.c}}
+
+
+PPG processing module implementation.  
+
+
+{\ttfamily \#include "{}ppg\+\_\+processing.\+h"{}}\newline
+{\ttfamily \#include "{}cmsis\+\_\+os.\+h"{}}\newline
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal\+\_\+adc.\+h"{}}\newline
+{\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}queue.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{ppg__processing_8c_a9ad745825388eca1c7d2b1a0d6a9e143}{PPG\+\_\+\+Init}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}adc\+\_\+red, ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}adc\+\_\+ir)
+\begin{DoxyCompactList}\small\item\em Initialize the PPG processing module. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ppg__processing_8c_a4ef378869c32048bbd76d446b2815217}{PPG\+\_\+\+Start}} (void)
+\begin{DoxyCompactList}\small\item\em Start a new PPG acquisition session. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ppg__processing_8c_a732bb873a5e51098d6a0cd44c9221f99}{PPG\+\_\+\+Stop}} (void)
+\begin{DoxyCompactList}\small\item\em Stop PPG acquisition and processing. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{ppg__processing_8c_a797b7be15d1292d0f340e4c48f9faff4}{PPG\+\_\+\+Is\+Running}} (void)
+\begin{DoxyCompactList}\small\item\em Check if PPG acquisition is currently running. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ppg__processing_8c_a0d9b74d499345188112093531f544eb3}{PPG\+\_\+\+Wait\+Until\+Done}} (void)
+\begin{DoxyCompactList}\small\item\em Block until PPG acquisition is complete. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{ppg__processing_8c_a19bb46b5a77fe2990d404fd8c5288a35}{PPG\+\_\+\+Process\+Step}} (void)
+\begin{DoxyCompactList}\small\item\em Execute one PPG processing step. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile float \mbox{\hyperlink{ppg__processing_8c_a691bb98f7a33ae7b79112b23a7e3a7be}{filtered\+\_\+signal}} = 0.\+0f
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{ppg__processing_8c_a038c4aa16303dfea1cf604d48e0d6ee3}{ppg\+\_\+red\+\_\+filtered}} = 0
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{ppg__processing_8c_a05b15999a4dbbf0c19ae47388f351836}{ppg\+\_\+ir\+\_\+filtered}} = 0
+\item 
+volatile float \mbox{\hyperlink{ppg__processing_8c_a08bbd049c9e1c41edb8e5299b6a728b3}{ppg\+\_\+heart\+\_\+rate\+\_\+bpm}} = 0.\+0f
+\item 
+volatile float \mbox{\hyperlink{ppg__processing_8c_a4ea827162522950cf9ca857aa06697a0}{ppg\+\_\+spo2\+\_\+percent}} = 0.\+0f
+\item 
+\Hypertarget{ppg__processing_8c_a1cbea60c4bcec16bff041d349d6d8681}\label{ppg__processing_8c_a1cbea60c4bcec16bff041d349d6d8681} 
+volatile uint8\+\_\+t {\bfseries dbg\+\_\+start\+\_\+called} = 0
+\item 
+\Hypertarget{ppg__processing_8c_a7ca321842e168eb60f4fbab891ed09a2}\label{ppg__processing_8c_a7ca321842e168eb60f4fbab891ed09a2} 
+volatile uint32\+\_\+t {\bfseries uart\+\_\+rx\+\_\+cnt} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+PPG processing module implementation. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{ppg__processing_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{ppg__processing_8c_a9ad745825388eca1c7d2b1a0d6a9e143}\index{ppg\_processing.c@{ppg\_processing.c}!PPG\_Init@{PPG\_Init}}
+\index{PPG\_Init@{PPG\_Init}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{PPG\_Init()}{PPG\_Init()}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a9ad745825388eca1c7d2b1a0d6a9e143} 
+void PPG\+\_\+\+Init (\begin{DoxyParamCaption}\item[{ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{adc\+\_\+red}{, }\item[{ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{adc\+\_\+ir}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the PPG processing module. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em adc\+\_\+red} & ADC handle for RED channel (ignored in simulation). \\
+\hline
+\mbox{\texttt{in}}  & {\em adc\+\_\+ir} & ADC handle for IR channel (ignored in simulation).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Must be called once at startup. 
+\end{DoxyNote}
+\Hypertarget{ppg__processing_8c_a797b7be15d1292d0f340e4c48f9faff4}\index{ppg\_processing.c@{ppg\_processing.c}!PPG\_IsRunning@{PPG\_IsRunning}}
+\index{PPG\_IsRunning@{PPG\_IsRunning}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{PPG\_IsRunning()}{PPG\_IsRunning()}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a797b7be15d1292d0f340e4c48f9faff4} 
+bool PPG\+\_\+\+Is\+Running (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Check if PPG acquisition is currently running. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & Acquisition active \\
+\hline
+{\em false} & Acquisition completed or not started \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{ppg__processing_8c_a19bb46b5a77fe2990d404fd8c5288a35}\index{ppg\_processing.c@{ppg\_processing.c}!PPG\_ProcessStep@{PPG\_ProcessStep}}
+\index{PPG\_ProcessStep@{PPG\_ProcessStep}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{PPG\_ProcessStep()}{PPG\_ProcessStep()}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a19bb46b5a77fe2990d404fd8c5288a35} 
+void PPG\+\_\+\+Process\+Step (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Execute one PPG processing step. 
+
+This function must be called periodically (e.\+g. 100 Hz), typically from a timer interrupt. \Hypertarget{ppg__processing_8c_a4ef378869c32048bbd76d446b2815217}\index{ppg\_processing.c@{ppg\_processing.c}!PPG\_Start@{PPG\_Start}}
+\index{PPG\_Start@{PPG\_Start}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{PPG\_Start()}{PPG\_Start()}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a4ef378869c32048bbd76d446b2815217} 
+void PPG\+\_\+\+Start (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Start a new PPG acquisition session. 
+
+Resets internal state and enables sampling. The acquisition will automatically stop after PPG\+\_\+\+TOTAL\+\_\+\+SAMPLES. \Hypertarget{ppg__processing_8c_a732bb873a5e51098d6a0cd44c9221f99}\index{ppg\_processing.c@{ppg\_processing.c}!PPG\_Stop@{PPG\_Stop}}
+\index{PPG\_Stop@{PPG\_Stop}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{PPG\_Stop()}{PPG\_Stop()}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a732bb873a5e51098d6a0cd44c9221f99} 
+void PPG\+\_\+\+Stop (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Stop PPG acquisition and processing. 
+
+Safely stops the PPG measurement, disables running flag and allows the PPG task to exit or wait for next start. \Hypertarget{ppg__processing_8c_a0d9b74d499345188112093531f544eb3}\index{ppg\_processing.c@{ppg\_processing.c}!PPG\_WaitUntilDone@{PPG\_WaitUntilDone}}
+\index{PPG\_WaitUntilDone@{PPG\_WaitUntilDone}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{PPG\_WaitUntilDone()}{PPG\_WaitUntilDone()}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a0d9b74d499345188112093531f544eb3} 
+void PPG\+\_\+\+Wait\+Until\+Done (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Block until PPG acquisition is complete. 
+
+\begin{DoxyNote}{Note}
+Intended for use inside a Free\+RTOS task. 
+\end{DoxyNote}
+
+
+\label{doc-var-members}
+\Hypertarget{ppg__processing_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{ppg__processing_8c_a691bb98f7a33ae7b79112b23a7e3a7be}\index{ppg\_processing.c@{ppg\_processing.c}!filtered\_signal@{filtered\_signal}}
+\index{filtered\_signal@{filtered\_signal}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{filtered\_signal}{filtered\_signal}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a691bb98f7a33ae7b79112b23a7e3a7be} 
+volatile float filtered\+\_\+signal = 0.\+0f}
+
+Last filtered signal (generic / simulation debug) \Hypertarget{ppg__processing_8c_a08bbd049c9e1c41edb8e5299b6a728b3}\index{ppg\_processing.c@{ppg\_processing.c}!ppg\_heart\_rate\_bpm@{ppg\_heart\_rate\_bpm}}
+\index{ppg\_heart\_rate\_bpm@{ppg\_heart\_rate\_bpm}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{ppg\_heart\_rate\_bpm}{ppg\_heart\_rate\_bpm}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a08bbd049c9e1c41edb8e5299b6a728b3} 
+volatile float ppg\+\_\+heart\+\_\+rate\+\_\+bpm = 0.\+0f}
+
+Last computed heart rate (bpm) \Hypertarget{ppg__processing_8c_a05b15999a4dbbf0c19ae47388f351836}\index{ppg\_processing.c@{ppg\_processing.c}!ppg\_ir\_filtered@{ppg\_ir\_filtered}}
+\index{ppg\_ir\_filtered@{ppg\_ir\_filtered}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{ppg\_ir\_filtered}{ppg\_ir\_filtered}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a05b15999a4dbbf0c19ae47388f351836} 
+volatile uint32\+\_\+t ppg\+\_\+ir\+\_\+filtered = 0}
+
+Last filtered IR sample \Hypertarget{ppg__processing_8c_a038c4aa16303dfea1cf604d48e0d6ee3}\index{ppg\_processing.c@{ppg\_processing.c}!ppg\_red\_filtered@{ppg\_red\_filtered}}
+\index{ppg\_red\_filtered@{ppg\_red\_filtered}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{ppg\_red\_filtered}{ppg\_red\_filtered}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a038c4aa16303dfea1cf604d48e0d6ee3} 
+volatile uint32\+\_\+t ppg\+\_\+red\+\_\+filtered = 0}
+
+Last filtered RED sample \Hypertarget{ppg__processing_8c_a4ea827162522950cf9ca857aa06697a0}\index{ppg\_processing.c@{ppg\_processing.c}!ppg\_spo2\_percent@{ppg\_spo2\_percent}}
+\index{ppg\_spo2\_percent@{ppg\_spo2\_percent}!ppg\_processing.c@{ppg\_processing.c}}
+\doxysubsubsection{\texorpdfstring{ppg\_spo2\_percent}{ppg\_spo2\_percent}}
+{\footnotesize\ttfamily \label{ppg__processing_8c_a4ea827162522950cf9ca857aa06697a0} 
+volatile float ppg\+\_\+spo2\+\_\+percent = 0.\+0f}
+
+Last computed Sp\+O2 (\%) 

@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['settling_5ftime_0',['SETTLING_TIME',['../ppg__processing_8h.html#ab57b763f0ede3adc50c07b3c0ce1da2f',1,'ppg_processing.h']]],
+  ['start_5fbattery_5fmonitor_1',['Start_Battery_monitor',['../group__AppTasks.html#gacdd95c20fe0762f93908f2fffbba751f',1,'Start_Battery_monitor(void *argument):&#160;main.c'],['../group__AppTasks.html#gacdd95c20fe0762f93908f2fffbba751f',1,'Start_Battery_monitor(void *argument):&#160;main.c']]],
+  ['start_5fdatalogging_2',['Start_Datalogging',['../group__AppTasks.html#gaa22e5104b647f75c9af8218a40ea76af',1,'Start_Datalogging(void *argument):&#160;main.c'],['../group__AppTasks.html#gaa22e5104b647f75c9af8218a40ea76af',1,'Start_Datalogging(void *argument):&#160;main.c']]],
+  ['start_5fdisplaying_3',['Start_Displaying',['../group__AppTasks.html#gaf567e8dc1934264cf1d1aac5fc045a28',1,'Start_Displaying(void *argument):&#160;main.c'],['../group__AppTasks.html#gaf567e8dc1934264cf1d1aac5fc045a28',1,'Start_Displaying(void *argument):&#160;main.c']]],
+  ['start_5fhr_5fspo2_5ftask_4',['Start_HR_SPO2_task',['../group__AppTasks.html#ga36b83619be2183555ff27391d8c05e3d',1,'Start_HR_SPO2_task(void *argument):&#160;main.c'],['../group__AppTasks.html#ga36b83619be2183555ff27391d8c05e3d',1,'Start_HR_SPO2_task(void *argument):&#160;main.c']]],
+  ['start_5fpublisher_5',['Start_publisher',['../group__AppTasks.html#gada0a16f9a8e7f203fd2a7d4af7d5a061',1,'Start_publisher(void *argument):&#160;main.c'],['../group__AppTasks.html#gada0a16f9a8e7f203fd2a7d4af7d5a061',1,'Start_publisher(void *argument):&#160;main.c']]],
+  ['startdefaulttask_6',['StartDefaultTask',['../main_8c.html#a99d0fdb0434092bcb24d9c9af917e4e9',1,'main.c']]],
+  ['stm32f4xx_5fhal_5fmsp_2ec_7',['stm32f4xx_hal_msp.c',['../stm32f4xx__hal__msp_8c.html',1,'']]],
+  ['stm32f4xx_5fhal_5ftimebase_5ftim_2ec_8',['stm32f4xx_hal_timebase_tim.c',['../stm32f4xx__hal__timebase__tim_8c.html',1,'']]],
+  ['stm32f4xx_5fit_2ec_9',['stm32f4xx_it.c',['../stm32f4xx__it_8c.html',1,'']]],
+  ['stm32f4xx_5fit_2eh_10',['stm32f4xx_it.h',['../stm32f4xx__it_8h.html',1,'']]],
+  ['stm32f4xx_5fsystem_11',['Stm32f4xx_system',['../group__stm32f4xx__system.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5fdefines_12',['STM32F4xx_System_Private_Defines',['../group__STM32F4xx__System__Private__Defines.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5ffunctionprototypes_13',['STM32F4xx_System_Private_FunctionPrototypes',['../group__STM32F4xx__System__Private__FunctionPrototypes.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5ffunctions_14',['STM32F4xx_System_Private_Functions',['../group__STM32F4xx__System__Private__Functions.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5fincludes_15',['STM32F4xx_System_Private_Includes',['../group__STM32F4xx__System__Private__Includes.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5fmacros_16',['STM32F4xx_System_Private_Macros',['../group__STM32F4xx__System__Private__Macros.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5ftypesdefinitions_17',['STM32F4xx_System_Private_TypesDefinitions',['../group__STM32F4xx__System__Private__TypesDefinitions.html',1,'']]],
+  ['stm32f4xx_5fsystem_5fprivate_5fvariables_18',['STM32F4xx_System_Private_Variables',['../group__STM32F4xx__System__Private__Variables.html',1,'']]],
+  ['syscalls_2ec_19',['syscalls.c',['../syscalls_8c.html',1,'']]],
+  ['sysmem_2ec_20',['sysmem.c',['../sysmem_8c.html',1,'']]],
+  ['system_5fstm32f4xx_2ec_21',['system_stm32f4xx.c',['../system__stm32f4xx_8c.html',1,'']]],
+  ['systemclock_5fconfig_22',['SystemClock_Config',['../main_8c.html#a70af21c671abfcc773614a9a4f63d920',1,'main.c']]],
+  ['systemcoreclockupdate_23',['SystemCoreClockUpdate',['../group__STM32F4xx__System__Private__Functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f',1,'system_stm32f4xx.c']]],
+  ['systeminit_24',['SystemInit',['../group__STM32F4xx__System__Private__Functions.html#ga93f514700ccf00d08dbdcff7f1224eb2',1,'system_stm32f4xx.c']]]
+];

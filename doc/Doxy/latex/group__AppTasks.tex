@@ -1,0 +1,105 @@
+\doxysection{Application Tasks }
+\hypertarget{group__AppTasks}{}\label{group__AppTasks}\index{Application Tasks@{Application Tasks}}
+
+
+Free\+RTOS application-\/level tasks.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__AppTasks_ga36b83619be2183555ff27391d8c05e3d}{Start\+\_\+\+HR\+\_\+\+SPO2\+\_\+task}} (void \texorpdfstring{$\ast$}{*}argument)
+\begin{DoxyCompactList}\small\item\em Task that computes Heart Rate and Sp\+O2 from PPG signals. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__AppTasks_gacdd95c20fe0762f93908f2fffbba751f}{Start\+\_\+\+Battery\+\_\+monitor}} (void \texorpdfstring{$\ast$}{*}argument)
+\begin{DoxyCompactList}\small\item\em Task that monitors battery voltage and status. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__AppTasks_gada0a16f9a8e7f203fd2a7d4af7d5a061}{Start\+\_\+publisher}} (void \texorpdfstring{$\ast$}{*}argument)
+\begin{DoxyCompactList}\small\item\em Task that publishes data over MQTT. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__AppTasks_gaa22e5104b647f75c9af8218a40ea76af}{Start\+\_\+\+Datalogging}} (void \texorpdfstring{$\ast$}{*}argument)
+\begin{DoxyCompactList}\small\item\em Task that handles data logging to storage. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__AppTasks_gaf567e8dc1934264cf1d1aac5fc045a28}{Start\+\_\+\+Displaying}} (void \texorpdfstring{$\ast$}{*}argument)
+\begin{DoxyCompactList}\small\item\em Task that manages data visualization and display updates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Free\+RTOS application-\/level tasks. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{group__AppTasks_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__AppTasks_gacdd95c20fe0762f93908f2fffbba751f}\index{Application Tasks@{Application Tasks}!Start\_Battery\_monitor@{Start\_Battery\_monitor}}
+\index{Start\_Battery\_monitor@{Start\_Battery\_monitor}!Application Tasks@{Application Tasks}}
+\doxysubsubsection{\texorpdfstring{Start\_Battery\_monitor()}{Start\_Battery\_monitor()}}
+{\footnotesize\ttfamily \label{group__AppTasks_gacdd95c20fe0762f93908f2fffbba751f} 
+void Start\+\_\+\+Battery\+\_\+monitor (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{argument}{}\end{DoxyParamCaption})}
+
+
+
+Task that monitors battery voltage and status. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & Free\+RTOS task argument (unused) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__AppTasks_gaa22e5104b647f75c9af8218a40ea76af}\index{Application Tasks@{Application Tasks}!Start\_Datalogging@{Start\_Datalogging}}
+\index{Start\_Datalogging@{Start\_Datalogging}!Application Tasks@{Application Tasks}}
+\doxysubsubsection{\texorpdfstring{Start\_Datalogging()}{Start\_Datalogging()}}
+{\footnotesize\ttfamily \label{group__AppTasks_gaa22e5104b647f75c9af8218a40ea76af} 
+void Start\+\_\+\+Datalogging (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{argument}{}\end{DoxyParamCaption})}
+
+
+
+Task that handles data logging to storage. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & Free\+RTOS task argument (unused) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__AppTasks_gaf567e8dc1934264cf1d1aac5fc045a28}\index{Application Tasks@{Application Tasks}!Start\_Displaying@{Start\_Displaying}}
+\index{Start\_Displaying@{Start\_Displaying}!Application Tasks@{Application Tasks}}
+\doxysubsubsection{\texorpdfstring{Start\_Displaying()}{Start\_Displaying()}}
+{\footnotesize\ttfamily \label{group__AppTasks_gaf567e8dc1934264cf1d1aac5fc045a28} 
+void Start\+\_\+\+Displaying (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{argument}{}\end{DoxyParamCaption})}
+
+
+
+Task that manages data visualization and display updates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & Free\+RTOS task argument (unused) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__AppTasks_ga36b83619be2183555ff27391d8c05e3d}\index{Application Tasks@{Application Tasks}!Start\_HR\_SPO2\_task@{Start\_HR\_SPO2\_task}}
+\index{Start\_HR\_SPO2\_task@{Start\_HR\_SPO2\_task}!Application Tasks@{Application Tasks}}
+\doxysubsubsection{\texorpdfstring{Start\_HR\_SPO2\_task()}{Start\_HR\_SPO2\_task()}}
+{\footnotesize\ttfamily \label{group__AppTasks_ga36b83619be2183555ff27391d8c05e3d} 
+void Start\+\_\+\+HR\+\_\+\+SPO2\+\_\+task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{argument}{}\end{DoxyParamCaption})}
+
+
+
+Task that computes Heart Rate and Sp\+O2 from PPG signals. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & Free\+RTOS task argument (unused) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__AppTasks_gada0a16f9a8e7f203fd2a7d4af7d5a061}\index{Application Tasks@{Application Tasks}!Start\_publisher@{Start\_publisher}}
+\index{Start\_publisher@{Start\_publisher}!Application Tasks@{Application Tasks}}
+\doxysubsubsection{\texorpdfstring{Start\_publisher()}{Start\_publisher()}}
+{\footnotesize\ttfamily \label{group__AppTasks_gada0a16f9a8e7f203fd2a7d4af7d5a061} 
+void Start\+\_\+publisher (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{argument}{}\end{DoxyParamCaption})}
+
+
+
+Task that publishes data over MQTT. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argument} & Free\+RTOS task argument (unused) \\
+\hline
+\end{DoxyParams}

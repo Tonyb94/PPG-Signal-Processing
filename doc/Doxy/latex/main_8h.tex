@@ -1,0 +1,82 @@
+\doxysection{Core/\+Inc/main.h File Reference}
+\hypertarget{main_8h}{}\label{main_8h}\index{Core/Inc/main.h@{Core/Inc/main.h}}
+
+
+\+: Header for \doxylink{main_8c}{main.\+c} file. This file contains the common defines of the application.  
+
+
+{\ttfamily \#include "{}stm32f4xx\+\_\+hal.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8h_ad9819261ad1644b02dadbfc97fb8d775}\label{main_8h_ad9819261ad1644b02dadbfc97fb8d775} 
+\#define {\bfseries Start\+\_\+measure\+\_\+button\+\_\+\+Pin}~GPIO\+\_\+\+PIN\+\_\+13
+\item 
+\Hypertarget{main_8h_ab0d99e6a9a5b36bf90f6628a67ef3cb9}\label{main_8h_ab0d99e6a9a5b36bf90f6628a67ef3cb9} 
+\#define {\bfseries Start\+\_\+measure\+\_\+button\+\_\+\+GPIO\+\_\+\+Port}~GPIOC
+\item 
+\Hypertarget{main_8h_a744b1bb4c28306645f986a03283753aa}\label{main_8h_a744b1bb4c28306645f986a03283753aa} 
+\#define {\bfseries Start\+\_\+measure\+\_\+button\+\_\+\+EXTI\+\_\+\+IRQn}~EXTI15\+\_\+10\+\_\+\+IRQn
+\item 
+\Hypertarget{main_8h_aa8a7ccbfe5aa25ae4d98ba3d95c3f5f5}\label{main_8h_aa8a7ccbfe5aa25ae4d98ba3d95c3f5f5} 
+\#define {\bfseries IR\+\_\+\+PWM\+\_\+\+LED\+\_\+\+Pin}~GPIO\+\_\+\+PIN\+\_\+5
+\item 
+\Hypertarget{main_8h_a3fe452c9b4ea3c5791d6c4881a79eb99}\label{main_8h_a3fe452c9b4ea3c5791d6c4881a79eb99} 
+\#define {\bfseries IR\+\_\+\+PWM\+\_\+\+LED\+\_\+\+GPIO\+\_\+\+Port}~GPIOA
+\item 
+\Hypertarget{main_8h_a62b384914e33d4fc46c21d1c42a2e01b}\label{main_8h_a62b384914e33d4fc46c21d1c42a2e01b} 
+\#define {\bfseries Red\+\_\+\+PWM\+\_\+\+LED\+\_\+\+Pin}~GPIO\+\_\+\+PIN\+\_\+6
+\item 
+\Hypertarget{main_8h_a90539590c64879d86ff6060a38a455f4}\label{main_8h_a90539590c64879d86ff6060a38a455f4} 
+\#define {\bfseries Red\+\_\+\+PWM\+\_\+\+LED\+\_\+\+GPIO\+\_\+\+Port}~GPIOA
+\item 
+\Hypertarget{main_8h_a6739aaf9c98fa138c865ec6288801d0d}\label{main_8h_a6739aaf9c98fa138c865ec6288801d0d} 
+\#define {\bfseries Battery\+\_\+\+Alarm\+\_\+\+Led\+\_\+\+Pin}~GPIO\+\_\+\+PIN\+\_\+7
+\item 
+\Hypertarget{main_8h_a1c2792bfe94190530ba39cca2a7fbbee}\label{main_8h_a1c2792bfe94190530ba39cca2a7fbbee} 
+\#define {\bfseries Battery\+\_\+\+Alarm\+\_\+\+Led\+\_\+\+GPIO\+\_\+\+Port}~GPIOA
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8h_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em This function is executed in case of error occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8h_aa9479c261d65eecedd3d9582f7f0f89c}\label{main_8h_aa9479c261d65eecedd3d9582f7f0f89c} 
+UART\+\_\+\+Handle\+Type\+Def {\bfseries huart2}
+\item 
+\Hypertarget{main_8h_a22b804736f5648d52f639b2647d4ed13}\label{main_8h_a22b804736f5648d52f639b2647d4ed13} 
+ADC\+\_\+\+Handle\+Type\+Def {\bfseries hadc1}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\+: Header for \doxylink{main_8c}{main.\+c} file. This file contains the common defines of the application. 
+
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2025 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+\label{doc-func-members}
+\Hypertarget{main_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8h_a1730ffe1e560465665eb47d9264826f9}\index{main.h@{main.h}!Error\_Handler@{Error\_Handler}}
+\index{Error\_Handler@{Error\_Handler}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{Error\_Handler()}{Error\_Handler()}}
+{\footnotesize\ttfamily \label{main_8h_a1730ffe1e560465665eb47d9264826f9} 
+void Error\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+This function is executed in case of error occurrence. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}

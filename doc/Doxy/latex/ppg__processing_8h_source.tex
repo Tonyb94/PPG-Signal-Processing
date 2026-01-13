@@ -1,0 +1,75 @@
+\doxysection{ppg\+\_\+processing.\+h}
+\hypertarget{ppg__processing_8h_source}{}\label{ppg__processing_8h_source}\index{Core/Inc/ppg\_processing.h@{Core/Inc/ppg\_processing.h}}
+\mbox{\hyperlink{ppg__processing_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ PPG\_PROCESSING\_H}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ PPG\_PROCESSING\_H}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ Configuration\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ BUFFER\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ 2U}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ PPG\_FS\ \ \ \ \ \ \ \ \ \ \ \ \ \ 100}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ PPG\_WINDOW\_SEC\ \ \ \ \ \ 5}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ PPG\_NUM\_WINDOWS\ \ \ \ \ 6}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ PPG\_TOTAL\_SAMPLES\ \ \ (PPG\_FS\ *\ PPG\_WINDOW\_SEC\ *\ PPG\_NUM\_WINDOWS)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ PPG\_FILTER\_WINDOW\ \ \ \ \ \ 16U}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ SETTLING\_TIME\ \ \ \ \ \ \ \ \ \ 15U\ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ Public\ data\ (visible\ for\ JLink\ /\ JScope)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ USE\_SIMULATION}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint16\_t\ adc\_raw;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{extern}\ uint8\_t\ usart\_rx\_buffer[\mbox{\hyperlink{ppg__processing_8h_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\_SIZE}}];}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint8\_t\ uart\_ready;}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{ppg__processing_8h_a691bb98f7a33ae7b79112b23a7e3a7be}{filtered\_signal}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint32\_t\ \mbox{\hyperlink{ppg__processing_8h_a038c4aa16303dfea1cf604d48e0d6ee3}{ppg\_red\_filtered}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint32\_t\ \mbox{\hyperlink{ppg__processing_8h_a05b15999a4dbbf0c19ae47388f351836}{ppg\_ir\_filtered}};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{ppg__processing_8h_a08bbd049c9e1c41edb8e5299b6a728b3}{ppg\_heart\_rate\_bpm}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{ppg__processing_8h_a4ea827162522950cf9ca857aa06697a0}{ppg\_spo2\_percent}};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00085\ \textcolor{comment}{/*\ Public\ API\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a9ad745825388eca1c7d2b1a0d6a9e143}{PPG\_Init}}(ADC\_HandleTypeDef\ *adc\_red,\ ADC\_HandleTypeDef\ *adc\_ir);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a4ef378869c32048bbd76d446b2815217}{PPG\_Start}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a732bb873a5e51098d6a0cd44c9221f99}{PPG\_Stop}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a19bb46b5a77fe2990d404fd8c5288a35}{PPG\_ProcessStep}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{ppg__processing_8h_a797b7be15d1292d0f340e4c48f9faff4}{PPG\_IsRunning}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00136\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a0d9b74d499345188112093531f544eb3}{PPG\_WaitUntilDone}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a419129239b27cb2a3dcafa198748b621}{PPG\_PushSimulatedSample}}(uint16\_t\ sample);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00152\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ppg__processing_8h_a341dbe0523957d0b1a0347d7400f0e9b}{PPG\_RunAutocalibration}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PPG\_PROCESSING\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

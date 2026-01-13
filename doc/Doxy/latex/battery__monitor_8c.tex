@@ -1,0 +1,98 @@
+\doxysection{Core/\+Src/battery\+\_\+monitor.c File Reference}
+\hypertarget{battery__monitor_8c}{}\label{battery__monitor_8c}\index{Core/Src/battery\_monitor.c@{Core/Src/battery\_monitor.c}}
+
+
+Battery monitoring module.  
+
+
+{\ttfamily \#include "{}battery\+\_\+monitor.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{battery__monitor_8c_a1f61543d0b68a50d5c8f5a308c75f1d9}\label{battery__monitor_8c_a1f61543d0b68a50d5c8f5a308c75f1d9} 
+\#define {\bfseries BATTERY\+\_\+\+THRESHOLD}~3354
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{battery__monitor_8c_a183c755296e524706f0bc4b12108401d}{Battery\+Monitor\+\_\+\+Init}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}adc, GPIO\+\_\+\+Type\+Def \texorpdfstring{$\ast$}{*}led\+Port, uint16\+\_\+t led\+Pin)
+\begin{DoxyCompactList}\small\item\em Initializes the HW to perform Battery monitoring. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{battery__monitor_8c_a1a1302c9f0bad8b8c6e92bed06eb684c}{Battery\+Monitor\+\_\+\+Update}} (void)
+\begin{DoxyCompactList}\small\item\em Algorithm to check the voltage level of Battery with HW configured by calling Battery\+Monitor() and manage alarm output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Battery monitoring module. 
+
+\begin{DoxyAuthor}{Author}
+A. Bellina 
+\end{DoxyAuthor}
+This module provides APIs to measure battery level using the ADC and to evaluate thresholds for battery alarms. It is meant to be used inside a Free\+RTOS task but can also be called from bare-\/metal code.
+
+Features\+:
+\begin{DoxyItemize}
+\item ADC acquisition wrapper
+\item Configurable voltage thresholds
+\item Integration with GPIO alarm LED
+\end{DoxyItemize}
+
+Dependencies\+:
+\begin{DoxyItemize}
+\item HAL ADC driver
+\item HAL GPIO driver
+\end{DoxyItemize}
+
+Version\+:
+\begin{DoxyItemize}
+\item v1.\+0 — Initial version 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{battery__monitor_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{battery__monitor_8c_a183c755296e524706f0bc4b12108401d}\index{battery\_monitor.c@{battery\_monitor.c}!BatteryMonitor\_Init@{BatteryMonitor\_Init}}
+\index{BatteryMonitor\_Init@{BatteryMonitor\_Init}!battery\_monitor.c@{battery\_monitor.c}}
+\doxysubsubsection{\texorpdfstring{BatteryMonitor\_Init()}{BatteryMonitor\_Init()}}
+{\footnotesize\ttfamily \label{battery__monitor_8c_a183c755296e524706f0bc4b12108401d} 
+void Battery\+Monitor\+\_\+\+Init (\begin{DoxyParamCaption}\item[{ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{adc}{, }\item[{GPIO\+\_\+\+Type\+Def \texorpdfstring{$\ast$}{*}}]{led\+Port}{, }\item[{uint16\+\_\+t}]{led\+Pin}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the HW to perform Battery monitoring. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em adc} & ADC\+\_\+\+Handle\+Type\+Def pointer descriptor to select ADC. \\
+\hline
+\mbox{\texttt{in}}  & {\em led\+Port} & GPIO\+\_\+\+Type\+Def pointer descriptor to select port for alarm \\
+\hline
+\mbox{\texttt{in}}  & {\em led\+Pin} & uint16\+\_\+t to select the pin on MCU to perform alarm\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{battery__monitor_8c_a1a1302c9f0bad8b8c6e92bed06eb684c}\index{battery\_monitor.c@{battery\_monitor.c}!BatteryMonitor\_Update@{BatteryMonitor\_Update}}
+\index{BatteryMonitor\_Update@{BatteryMonitor\_Update}!battery\_monitor.c@{battery\_monitor.c}}
+\doxysubsubsection{\texorpdfstring{BatteryMonitor\_Update()}{BatteryMonitor\_Update()}}
+{\footnotesize\ttfamily \label{battery__monitor_8c_a1a1302c9f0bad8b8c6e92bed06eb684c} 
+void Battery\+Monitor\+\_\+\+Update (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Algorithm to check the voltage level of Battery with HW configured by calling Battery\+Monitor() and manage alarm output. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+Battery\+Monitor() must be called before this function. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Turns on the led when Battery level voltage goes under the threshold.
+\end{DoxyPostcond}
+\begin{DoxyWarning}{Warning}
+connect the HW with the right configured pins and ADC. 
+\end{DoxyWarning}
