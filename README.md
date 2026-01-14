@@ -119,6 +119,17 @@ cd HR_SPO2_computing_dev
 
 ```
 
+## 📚 API Documentation (Doxygen)
+
+The embedded firmware is documented using **Doxygen** to ensure maintainability, traceability, and clarity of the system architecture.
+
+### 🔗 Accessing the documentation
+
+To view the generated documentation locally:
+
+1. Clone the repository
+2. Open the following file doc\Doxy\index.html 
+
 ## Diagrams
 
 ### Level 0: System Context
