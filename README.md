@@ -24,7 +24,7 @@ This project is developed using the following hardware and software stack:
 
 ### **Hardware**
 - **STM32F411RE** (Nucleo board) — main MCU for signal processing  
-- **PPG Sensor** (MAX30102 or compatible, planned)  
+- **PPG Sensor** (planned)  
 - **SD Card Module via SPI** — data logging  
 
 ### **Software**
@@ -73,11 +73,11 @@ cd HR_SPO2_computing_dev
 
 # - play build
 
-# NB.: Use lounch.json inside .vscode to Debug (Do not overite !!)
+# NB.: Use launch.json inside .vscode folder to Debug (Do not overite !!)
 ```
 # Debug
 
- - Op1: Download MCU drivers for Jlink and Jlink compatible tools for STM32F411RE
+ - Op1: Download MCU drivers for Jlink Debgger and Jlink compatible tools for STM32F411RE
 
  - Op2: Download STLINK and STM32CubeIDE
 
@@ -85,15 +85,15 @@ cd HR_SPO2_computing_dev
 
 # For VSCODE + Op1 suggestion
 
- - Download:
-    - STM32CubeIDE extention for vscode 
+ - Download th following extentions for vscode:
+    - STM32CubeIDE  
     - C/C++ Intellisense
     - CMake Tools
     - Cortex - Debug
 
  - Create workspace in vscode inside "HR_SPO2_computing_dev" folder
 
- - Open cmd prompt in the MCU project is located and type
+ - Open command prompt where the MCU project is located and type
    ```bash
    # Windows
    code HR_SPO2_computing_dev.worspace
@@ -146,7 +146,7 @@ Shows the overall system, including the PPG sensor, battery, user interface, and
 Illustrates the three main modules of the system:
 1. **HR/SpO2 Computation** – processes raw PPG signals to compute heart rate and oxygen saturation.  
 2. **Battery Alarm** – monitors battery level and triggers alerts when low.  
-3. **Data Logger** – stores processed HR/SpO2 data for later use.
+3. **Data Logger** – stores processes HR/SpO2 data for later use.
 
 ---
 
