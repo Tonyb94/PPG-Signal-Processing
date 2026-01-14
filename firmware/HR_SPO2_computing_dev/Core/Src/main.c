@@ -199,6 +199,18 @@ void Start_Datalogging(void *argument)
         osDelay(1000);
     }
 }
+/**
+ * @brief  GPIO EXTI callback.
+ *
+ * This function is called by the HAL when an external interrupt
+ * occurs on a configured GPIO pin and transmits a character through 
+ * UART2 interface (SIMULATION only).
+ *
+ * @param[in] GPIO_Pin  Specifies the pins connected to EXTI line.
+ *
+ * @note This function is a user implementation of the weak
+ *       HAL_GPIO_EXTI_Callback() provided by the STM32 HAL.
+ */
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
