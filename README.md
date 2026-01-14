@@ -25,14 +25,13 @@ This project is developed using the following hardware and software stack:
 ### **Hardware**
 - **STM32F411RE** (Nucleo board) — main MCU for signal processing  
 - **PPG Sensor** (MAX30102 or compatible, planned)  
-- **SEGGER J-Link** — debugging & J-Scope signal visualization  
 - **SD Card Module via SPI** — data logging  
 
 ### **Software**
 - **STM32CubeMX** — peripheral initialization  
 - **VS Code + Cortex-Debug + ARM Toolchain** — development environment  
 - **Python 3.9.13** — synthetic data generation and offline analysis  
-- **SEGGER J-Scope** — real-time visualization of filtered signal  
+- **SEGGER J-Link** — debugging & J-Scope signal visualization  
 - **draw.io / diagrams.net** — system diagrams  
 
 ---
@@ -68,13 +67,13 @@ cd HR_SPO2_computing_dev
 
 # - CMake: Select Configure Preset
 
-    # choose SimulatedDebug or Debug
+# - Choose SimulatedDebug or Debug
 
 # - Cmake: Configure Preset
 
 # - play build
 
-# - NB.: Use lounch.json inside .vscode to Debug (Do not overite !!)
+# NB.: Use lounch.json inside .vscode to Debug (Do not overite !!)
 ```
 # Debug
 
