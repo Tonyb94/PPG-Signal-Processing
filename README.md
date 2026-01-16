@@ -75,17 +75,17 @@ cd HR_SPO2_computing_dev
 
 # NB.: Use launch.json inside .vscode folder to Debug (Do not overite !!)
 ```
-# Debug
+# 2. Debug
 
  - Op1: Download MCU drivers for Jlink Debgger and Jlink compatible tools for STM32F411RE
 
- - Op2: Download STLINK and STM32CubeIDE
+ - Op2: Download STLINK and STM32CubeIDEor vscode
 
  - Download arm-cortex toolchain as compiler
 
 # For VSCODE + Op1 suggestion
 
- - Download th following extentions for vscode:
+ - Download the following extentions for vscode:
     - STM32CubeIDE  
     - C/C++ Intellisense
     - CMake Tools
