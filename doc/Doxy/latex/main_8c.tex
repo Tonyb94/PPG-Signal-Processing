@@ -190,7 +190,7 @@ void HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback (\begin{DoxyParamCaption}\item[
 
 GPIO EXTI callback. 
 
-This function is called by the HAL when an external interrupt occurs on a configured GPIO pin and transmit a character through UART2 interface (SIMULATION only).
+This function is called by the HAL when an external interrupt occurs on a configured GPIO pin and transmits a character through UART2 interface (SIMULATION only).
 
 
 \begin{DoxyParams}[1]{Parameters}
@@ -211,18 +211,13 @@ void HAL\+\_\+\+TIM\+\_\+\+Period\+Elapsed\+Callback (\begin{DoxyParamCaption}\i
 Period elapsed callback in non blocking mode. 
 
 \begin{DoxyNote}{Note}
-This function is called when TIM9 interrupt took place, inside HAL\+\_\+\+TIM\+\_\+\+IRQHandler(). It makes a direct call to HAL\+\_\+\+Inc\+Tick() to increment a global variable "{}uw\+Tick"{} used as application time base. 
+Called when TIM9 interrupt occurs 
 \end{DoxyNote}
 
 \begin{DoxyParams}{Parameters}
-{\em htim} & \+: TIM handle \\
+{\em htim} & TIM handle \\
 \hline
 \end{DoxyParams}
-
-\begin{DoxyRetVals}{Return values}
-{\em None} & \\
-\hline
-\end{DoxyRetVals}
 \Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
 \index{main@{main}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
@@ -273,11 +268,7 @@ System Clock Configuration.
 {\em None} & \\
 \hline
 \end{DoxyRetVals}
-Configure the main internal regulator output voltage
 
-Initializes the RCC Oscillators according to the specified parameters in the RCC\+\_\+\+Osc\+Init\+Type\+Def structure.
-
-Initializes the CPU, AHB and APB buses clocks
 
 \label{doc-var-members}
 \Hypertarget{main_8c_doc-var-members}

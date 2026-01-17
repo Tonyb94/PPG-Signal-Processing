@@ -22,6 +22,8 @@
 #include "cmsis_os.h"
 #include "fatfs.h"
 
+#include "app_tasks.h"
+
 #include "battery_monitor.h"
 #include "ppg_processing.h"
 

@@ -250,7 +250,7 @@ osStaticEventGroupDef_t&#160;</td><td class="memItemRight" valign="bottom"><b>pu
 </div><div class="memdoc">
 
 <p>GPIO EXTI callback. </p>
-<p>This function is called by the HAL when an external interrupt occurs on a configured GPIO pin and transmit a character through UART2 interface (SIMULATION only).</p>
+<p>This function is called by the HAL when an external interrupt occurs on a configured GPIO pin and transmits a character through UART2 interface (SIMULATION only).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">GPIO_Pin</td><td>Specifies the pins connected to EXTI line.</td></tr>
@@ -277,16 +277,10 @@ osStaticEventGroupDef_t&#160;</td><td class="memItemRight" valign="bottom"><b>pu
 </div><div class="memdoc">
 
 <p>Period elapsed callback in non blocking mode. </p>
-<dl class="section note"><dt>Note</dt><dd>This function is called when TIM9 interrupt took place, inside HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment a global variable "uwTick" used as application time base. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Called when TIM9 interrupt occurs </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">htim</td><td>: TIM handle </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">None</td><td></td></tr>
+    <tr><td class="paramname">htim</td><td>TIM handle </td></tr>
   </table>
   </dd>
 </dl>
@@ -371,9 +365,6 @@ osStaticEventGroupDef_t&#160;</td><td class="memItemRight" valign="bottom"><b>pu
   </table>
   </dd>
 </dl>
-<p>Configure the main internal regulator output voltage</p>
-<p>Initializes the RCC Oscillators according to the specified parameters in the RCC_OscInitTypeDef structure.</p>
-<p>Initializes the CPU, AHB and APB buses clocks</p>
 
 </div>
 </div>
