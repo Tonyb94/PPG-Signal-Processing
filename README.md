@@ -1,126 +1,192 @@
-# PPG-Signal-Processing Device
-Signal Processing designed for STM32f411re MCU for a complete medical device project 
+# PPG Signal Processing System (STM32 + FreeRTOS)
 
-# PPG Signal Processing Device
+This repository contains the design and implementation of a **real-time embedded PPG signal processing system** targeting **medical-grade embedded applications**.
 
-This repository contains the design and implementation of a **PPG Signal Processing Device** with heart rate (HR) and SpO2 computation, battery alarm, and data logging functionality. The project is structured into modular components, represented in a multi-level DeMarco functional diagram.
+The project is developed for an **STM32F411RE MCU** and focuses on **deterministic timing, RTOS architecture, and hardware-driven signal acquisition**, rather than on pure algorithmic complexity.
 
-A modular implementation of a **PPG-based signal processing system** running on an STM32F411RE MCU, featuring:
-
-- Digital filtering  
-- Heart Rate (HR) computation  
-- SpO₂ computation  
-- Battery level monitoring & alarm  
-- Data logging to SD card  
-- Extensible architecture for WiFi/MQTT/WebApp integration  
-
-The architecture follows a **multi-level DeMarco functional diagram** for clarity and future scalability.
+The system is designed to be **modular, testable, and extensible**, following embedded best practices commonly adopted in medical and industrial devices.
 
 ---
 
-## 🛠 Development Tools
+## Project Overview
 
-This project is developed using the following hardware and software stack:
+The firmware implements a complete signal-processing pipeline for a PPG-based device, including:
 
-### **Hardware**
-- **STM32F411RE** (Nucleo board) — main MCU for signal processing  
-- **PPG Sensor** (planned)  
-- **SD Card Module via SPI** — data logging  
+- Real-time PPG signal acquisition
+- Digital filtering
+- Heart Rate (HR) computation *(planned / in progress)*
+- SpO₂ computation *(planned / in progress)*
+- Battery monitoring and alarm task
+- Data logging architecture (SD card, SPI)
+- Simulation mode for development without physical sensors
 
-### **Software**
-- **STM32CubeMX** — peripheral initialization  
-- **VS Code + Cortex-Debug + ARM Toolchain** — development environment  
-- **Python 3.9.13** — synthetic data generation and offline analysis  
-- **SEGGER J-Link** — debugging & J-Scope signal visualization  
-- **draw.io / diagrams.net** — system diagrams  
+The architecture is documented using **multi-level DeMarco functional diagrams**.
 
 ---
 
-## 📈 Real-Time Filtering Preview (STM32 + J-Scope)
+## Design Goals
 
-Example of filtered PPG waveform captured during firmware testing:
+The main design goals of this project are:
 
-![PPG Filtered Signal](images/jscope_filtered_signal.png)
+- Deterministic sampling using **hardware timers**
+- Clear separation between **ISR, RTOS tasks, and processing logic**
+- Minimal and safe ISR design
+- RTOS-based synchronization using **queues and semaphores**
+- Identical processing flow in **simulation and real hardware modes**
+- Long-term maintainability and extensibility
+
+These goals reflect typical constraints of **medical and safety-oriented embedded systems**.
 
 ---
-## 🏗 Getting Started
 
-### 1. STM32 Project Build
+## RTOS Architecture
+
+The firmware uses **FreeRTOS (CMSIS-RTOS v2)** and is organized into independent tasks:
+
+| Task | Responsibility |
+|----|----|
+| PPG Processing Task | Real-time filtering and signal processing |
+| Battery Monitor Task | Battery voltage monitoring and alarm |
+| System Control | User button handling and system start/stop |
+
+### Synchronization Model
+
+- A **hardware timer (TIM9)** defines the system sampling rate (100 Hz)
+- ISRs are limited to signaling mechanisms only
+- Data exchange between ISR and tasks uses **FreeRTOS queues**
+- No busy-waiting or polling inside tasks
+
+This ensures **bounded latency and predictable execution timing**.
+
+---
+
+## Interrupt Design Philosophy
+
+All interrupts are designed according to the following rules:
+
+- No signal processing inside ISRs
+- No blocking RTOS calls inside ISRs
+- No dynamic memory allocation
+- ISRs only:
+  - push data to queues
+  - release semaphores
+  - notify tasks
+
+This approach is aligned with best practices for **real-time and medical embedded systems**.
+
+---
+
+## Simulation-Driven Development
+
+To decouple firmware development from sensor availability, the system supports a **simulation mode**:
+
+- The MCU remains the **timing master**
+- Synthetic PPG samples are generated externally using Python
+- UART is used as a virtual ADC interface
+- The same processing task is used in simulation and real modes
+
+This allowed early validation of:
+- task scheduling
+- queue sizing
+- real-time behavior
+- system stability under load
+
+---
+
+## Timing & Performance
+
+- Sampling frequency: **100 Hz (hardware-timed)**
+- Processing rate: 1 sample per tick
+- Queue depth sized to absorb jitter
+- No missed samples observed during simulation
+
+The architecture is ready for future integration of:
+- DMA-based ADC acquisition
+- real optical PPG sensors
+
+---
+
+## Development Tools
+
+### Hardware
+- **STM32F411RE** (Nucleo board)
+- PPG sensor *(planned)*
+- SD Card module via SPI *(planned)*
+
+### Software
+- STM32CubeMX
+- FreeRTOS (CMSIS-RTOS v2)
+- VS Code + Cortex-Debug + ARM Toolchain
+- SEGGER J-Link + J-Scope
+- Python 3.9 (signal simulation and offline analysis)
+- draw.io / diagrams.net
+
+---
+
+## Getting Started
+
+### Build the STM32 Project
 
 ```bash
-# Navigate to project folder
 cd HR_SPO2_computing_dev
 
-## Build project
+# Simulation build
+cmake --build --preset SimulatedDebug
 
-# 1. cmd prompt
-
-# - If you want to compile in Simulation
-    cmake --build --preset SimulatedDebug
-
-# - If If you want to compile
-    cmake --build --preset Debug
-
-# 2.  VScode 
-
-# - Command Palette
-
-# - CMake: Select Configure Preset
-
-# - Choose SimulatedDebug or Debug
-
-# - Cmake: Configure Preset
-
-# - play build
-
-# NB.: Use launch.json inside .vscode folder to Debug (Do not overite !!)
+# Hardware build
+cmake --build --preset Debug
 ```
-# 2. Debug
 
- - Op1: Download MCU drivers for Jlink Debgger and Jlink compatible tools for STM32F411RE
+## VS Code Workflow
 
- - Op2: Download STLINK and STM32CubeIDEor vscode
+1. Open the project folder in VS Code
+2. Open the Command Palette
+3. Select **CMake: Select Configure Preset**
+4. Choose `SimulatedDebug` or `Debug`
+5. Run **CMake: Configure**
+6. Build the project
 
- - Download arm-cortex toolchain as compiler
+Use the provided `launch.json` file for debugging.  
+Do not overwrite the existing configuration.
 
-# For VSCODE + Op1 suggestion
+---
 
- - Download the following extentions for vscode:
-    - STM32CubeIDE  
-    - C/C++ Intellisense
-    - CMake Tools
-    - Cortex - Debug
+## Debugging
 
- - Create workspace in vscode inside "HR_SPO2_computing_dev" folder
+Supported debugging options:
 
- - Open command prompt where the MCU project is located and type
-   ```bash
-   # Windows
-   code HR_SPO2_computing_dev.worspace
-   ``` 
-   to open the project in vscode
-     
+- SEGGER J-Link (recommended)
+- ST-Link
+- STM32CubeIDE
+- VS Code with Cortex-Debug extension
 
-### PYTHON ENVIRONMENT
+Real-time signal inspection is performed using **SEGGER J-Scope**.
+
+---
+
+## Python Simulation Environment
+
+The Python environment is used to generate synthetic PPG samples and simulate the sensor during development.
+
+Setup steps:
 
 ```bash
-# - Install Python 3.9.13
-
-# - create a venv 
-    python -m venv SPO2_project_venv venv 
-
-# - activate venv
-    cd SPO2_project_venv\Scripts
-    activate
-
-# install requirements
-    pip install -r requirements.txt
-
+python -m venv SPO2_project_venv
+cd SPO2_project_venv\Scripts
+activate
+pip install -r requirements.txt
 ```
 
 ## 📚 API Documentation (Doxygen)
 
-The embedded firmware is documented using **Doxygen** to ensure maintainability, traceability, and clarity of the system architecture.
+The embedded firmware is documented using **Doxygen** to improve readability,
+maintainability, and onboarding for new developers.
+
+The documentation focuses on:
+- Module responsibilities
+- Public APIs
+- Data flow between processing blocks
+- Timing-related design choices
 
 ### 🔗 Accessing the documentation
 
@@ -129,13 +195,39 @@ To view the generated documentation locally:
 1. Clone the repository
 2. Open the following file doc\Doxy\index.html 
 
+
+> Note: The documentation emphasizes **architecture and interfaces** rather than
+final biomedical algorithms, which are still under development.
+
+
+## 🧩 System Architecture
+
+The firmware architecture is based on a **modular, RTOS-driven design**, suitable
+for medical and industrial embedded systems.
+
+Key design principles:
+- Clear separation between acquisition, processing, and application logic
+- Deterministic timing using hardware timers
+- Decoupling of signal acquisition and processing
+- Support for both **real hardware acquisition** and **PC-based simulation**
+
+The system is described using **multi-level DeMarco functional diagrams**.
+
+---
+
+---
+
 ## Diagrams
 
 ### Level 0: System Context
 ![Level 0](diagrams/level0_system_context.svg)
 
 **Overview:**  
-Shows the overall system, including the PPG sensor, battery, user interface, and the main processing module. This level highlights the interaction between the device and external entities.
+Shows the interaction between the device and external entities such as:
+- PPG sensor
+- User interface
+- Power supply
+- Data logging subsystem
 
 ---
 
@@ -143,10 +235,10 @@ Shows the overall system, including the PPG sensor, battery, user interface, and
 ![Level 1](diagrams/level1_main_processes.svg)
 
 **Overview:**  
-Illustrates the three main modules of the system:
-1. **HR/SpO2 Computation** – processes raw PPG signals to compute heart rate and oxygen saturation.  
-2. **Battery Alarm** – monitors battery level and triggers alerts when low.  
-3. **Data Logger** – stores processes HR/SpO2 data for later use.
+Illustrates the main functional blocks:
+1. HR / SpO₂ Computation
+2. Battery Monitoring & Alarm
+3. Data Logging
 
 ---
 
@@ -154,10 +246,11 @@ Illustrates the three main modules of the system:
 ![Level 2 HR/SpO2](diagrams/level2_hr_spo2.svg)
 
 **Components:**  
-- **PPG Signal Input** – receives raw sensor data.  
-- **Digital Filtering** – applies moving average or other filters to clean the signal.  
-- **Feature Extraction** – calculates heart rate and oxygen saturation values.  
-- **Output Data Flow** – sends computed HR/SpO2 values to the Data Logger module.
+Details the signal processing pipeline:
+- Raw PPG acquisition
+- Digital filtering
+- Feature extraction
+- Output data flow
 
 ---
 
@@ -165,9 +258,7 @@ Illustrates the three main modules of the system:
 ![Level 2 Battery Alarm](diagrams/level2_battery_alarm.svg)
 
 **Components:**  
-- **Battery Monitor** – reads battery voltage level.  
-- **Threshold Detection** – compares current voltage with predefined threshold.  
-- **Alert Generation** – triggers notifications to the user or device interface when battery is low.
+Describes battery monitoring and threshold-based alert generation.
 
 ---
 
@@ -175,9 +266,8 @@ Illustrates the three main modules of the system:
 ![Level 2 Data Logger](diagrams/level2_data_logger.svg)
 
 **Components:**  
-- **Data Logger Manager** – receives HR/SpO2 data and formats it for storage.  
-- **SPI Manager** – manages SPI communication to write data to SD card.  
-- **SD Card Storage** – stores data in **JSON format**, lightweight and suitable for future integration with HL7 standards or web applications.
+Describes SD card logging through SPI, with data stored in a lightweight,
+structured format suitable for future interoperability.
 
 **Data Flow:**  
 
@@ -230,3 +320,40 @@ HR_SPO2_computing_dev/
                 └───MemMang
 
 ```
+
+---
+
+## 🚧 Project Status
+
+Current focus:
+- Firmware architecture
+- Timing control
+- Simulation framework
+- Modular processing pipeline
+
+Planned next steps:
+- Heart Rate computation
+- SpO₂ computation
+- Improved digital filtering
+- Sensor integration
+- Data logging refinement
+
+---
+
+## 📌 Notes for Recruiters
+
+This project is intentionally structured as a **work-in-progress system**.
+The focus is on:
+- Embedded architecture
+- RTOS usage
+- Timing correctness
+- Testability and scalability
+
+Biomedical algorithms will be refined in later stages.
+
+---
+
+## 📄 License
+
+This project is provided for educational and portfolio purposes.
+
