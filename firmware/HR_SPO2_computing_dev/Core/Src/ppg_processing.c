@@ -114,7 +114,8 @@ void PPG_Stop(void)
     ppg_running = false;
 
 #ifndef USE_SIMULATION
-    // Qui in futuro:
+    // TODO: Replace simulation input with ADC DMA acquisition
+
     // HAL_ADC_Stop(...)
     // HAL_TIM_Base_Stop_IT(...)
 #endif

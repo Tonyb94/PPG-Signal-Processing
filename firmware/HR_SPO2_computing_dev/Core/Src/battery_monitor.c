@@ -55,7 +55,7 @@ void BatteryMonitor_Init(ADC_HandleTypeDef *adc, GPIO_TypeDef *ledPort, uint16_t
  *
  * @param[in]  void 
  *
- * @pre     BatteryMonitor() must be called before this function.
+ * @pre     BatteryMonitor_Init() must be called before this function.
  * @post    Turns on the led when Battery level voltage goes under the threshold.
  *
  *
