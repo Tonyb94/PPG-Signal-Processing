@@ -43,11 +43,13 @@ These goals reflect typical constraints of **medical and safety-oriented embedde
 
 The firmware uses **FreeRTOS (CMSIS-RTOS v2)** and is organized into independent tasks:
 
-| Task | Responsibility |
-|----|----|
-| PPG Processing Task | Real-time filtering and signal processing |
-| Battery Monitor Task | Battery voltage monitoring and alarm |
-| System Control | User button handling and system start/stop |
+| Task            |status | Responsibility                                 |
+|-----------------|-------|------------------------------------------------|
+| PPG Processing  |Partially Implemented| Real-time filtering and signal processing  |
+| Battery Monitor |Implemented| Battery voltage monitoring and alarm       |
+| Data Logger | Stub | SD card logging via SPI |
+| Display | Stub | User feedback and status visualization |
+| WiFi / MQTT | Stub | Remote telemetry and device communication |
 
 ### Synchronization Model
 
