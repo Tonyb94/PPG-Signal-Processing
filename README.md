@@ -50,31 +50,35 @@ The firmware uses **FreeRTOS (CMSIS-RTOS v2)** and is organized into independent
 | Data Logger | Stub | SD card logging via SPI |
 | Display | Stub | User feedback and status visualization |
 | WiFi / MQTT | Stub | Remote telemetry and device communication |
-
+---
 ### Synchronization Model
 
-- A **hardware timer (TIM9)** defines the system sampling rate (100 Hz)
-- ISRs are limited to signaling mechanisms only
-- Data exchange between ISR and tasks uses **FreeRTOS queues**
-- No busy-waiting or polling inside tasks
+- A hardware timer (TIM9) defines the system sampling rate (100 Hz)
+- Interrupt Service Routines (ISRs) are kept minimal and event-driven
+- Data exchange between ISRs and tasks is handled using FreeRTOS queues
+- Tasks rely exclusively on RTOS blocking primitives (queues, semaphores, delays)
+- No busy-waiting or active polling is used
 
-This ensures **bounded latency and predictable execution timing**.
+This design ensures bounded latency, predictable execution timing,
+and efficient CPU utilization.
+
 
 ---
 
-## Interrupt Design Philosophy
+## Interrupt Design Principles
 
-All interrupts are designed according to the following rules:
+Interrupt Service Routines are designed according to the following rules:
 
-- No signal processing inside ISRs
+- No signal processing or algorithmic computation inside ISRs
 - No blocking RTOS calls inside ISRs
-- No dynamic memory allocation
-- ISRs only:
-  - push data to queues
-  - release semaphores
-  - notify tasks
+- No dynamic memory allocation inside ISRs
+- ISRs are limited to:
+  - minimal data framing
+  - pushing data to RTOS queues
+  - releasing semaphores or notifying tasks
+  - restarting non-blocking peripheral transfers (e.g. DMA)
 
-This approach is aligned with best practices for **real-time and medical embedded systems**.
+All ISR operations are constant-time and non-blocking.
 
 ---
 
@@ -85,7 +89,8 @@ To decouple firmware development from sensor availability, the system supports a
 - The MCU remains the **timing master**
 - Synthetic PPG samples are generated externally using Python
 - UART is used as a virtual ADC interface
-- The same processing task is used in simulation and real modes
+- The same RTOS tasks and processing pipeline are used in both
+  simulation and real hardware mode
 
 This allowed early validation of:
 - task scheduling
