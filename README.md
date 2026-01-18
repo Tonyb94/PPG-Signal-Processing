@@ -12,12 +12,12 @@ The system is designed to be **modular, testable, and extensible**, following em
 
 The firmware implements a complete signal-processing pipeline for a PPG-based device, including:
 
-- Real-time PPG signal acquisition
+- Real-time PPG signal acquisition 
 - Digital filtering
-- Heart Rate (HR) computation *(planned / in progress)*
-- SpO₂ computation *(planned / in progress)*
+- Heart Rate (HR) computation *(planned)*
+- SpO₂ computation *(planned)*
 - Battery monitoring and alarm task
-- Data logging architecture (SD card, SPI)
+- Data logging architecture (SD card, SPI) *(planned)*
 - Simulation mode for development without physical sensors
 
 The architecture is documented using **multi-level DeMarco functional diagrams**.
