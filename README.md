@@ -276,7 +276,6 @@ Describes battery monitoring and threshold-based alert generation.
 Describes SD card logging through SPI, with data stored in a lightweight,
 structured format suitable for future interoperability.
 
-**Data Flow:**  
 
 ## Project Structure of STM32 MCU
 
