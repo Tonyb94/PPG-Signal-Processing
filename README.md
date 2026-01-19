@@ -347,7 +347,7 @@ Planned next steps:
 
 ---
 
-## 📌 Notes for Recruiters
+## 📌 Project Scope and Current Status
 
 This project is intentionally structured as a **work-in-progress system**.
 The focus is on:
