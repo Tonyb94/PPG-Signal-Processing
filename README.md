@@ -1,4 +1,5 @@
-# PPG Signal Processing System (STM32 + FreeRTOS)
+#   Real-Time PPG Signal Processing System (STM32 + FreeRTOS)
+##  Architecture-focused embedded firmware for medical-grade devices
 
 This repository contains the design and implementation of a **real-time embedded PPG signal processing system** targeting **medical-grade embedded applications**.
 
@@ -7,104 +8,95 @@ The project is developed for an **STM32F411RE MCU** and focuses on **determinist
 The system is designed to be **modular, testable, and extensible**, following embedded best practices commonly adopted in medical and industrial devices.
 
 ---
+#  ⚠️ **Note on project scope**  
+> This project focuses on **embedded architecture, RTOS design, and timing correctness**.  
+> Biomedical algorithms (HR, SpO₂) are intentionally left as *work in progress* and will be
+> validated offline before full MCU integration.
 
-## Project Overview
+---
+## 🧠 Firmware Architecture Overview
 
-The firmware implements a complete signal-processing pipeline for a PPG-based device, including:
+The firmware is structured as a **real-time, RTOS-based pipeline** designed to process PPG samples with deterministic timing and clear separation of responsibilities.
 
-- Real-time PPG signal acquisition 
-- Digital filtering
-- Heart Rate (HR) computation *(planned)*
-- SpO₂ computation *(planned)*
-- Battery monitoring and alarm task
-- Data logging architecture (SD card, SPI) *(planned)*
-- Simulation mode for development without physical sensors
+A **hardware timer (TIM9)** defines the system sampling rate (**100 Hz**) and acts as the single timing reference for both simulation and real hardware operation.
 
-The architecture is documented using **multi-level DeMarco functional diagrams**.
+At each timer tick:
+1. A new sample is acquired (real ADC or simulated UART input)
+2. The sample is forwarded to the processing task through an RTOS queue
+3. Signal processing and system-level logic are executed in task context
+
+This approach ensures **predictable timing**, **bounded latency**, and **clean task-level execution**.
 
 ---
 
-## Design Goals
+## 🧩 RTOS Task Model
 
-The main design goals of this project are:
+The firmware uses **FreeRTOS (CMSIS-RTOS v2)** and is organized into independent tasks, each with a well-defined responsibility:
 
-- Deterministic sampling using **hardware timers**
-- Clear separation between **ISR, RTOS tasks, and processing logic**
-- Minimal and safe ISR design
-- RTOS-based synchronization using **queues and semaphores**
-- Identical processing flow in **simulation and real hardware modes**
-- Long-term maintainability and extensibility
+| Task              | Status | Responsibility |
+|-------------------|--------|----------------|
+| **PPG Processing** | ⚠️ Partial | Real-time signal filtering and feature extraction |
+| **Battery Monitor** | ✅ Implemented | Battery voltage monitoring and alarm generation |
+| **Data Logger** | 🚧 Stub | SD card logging via SPI |
+| **Display** | 🚧 Stub | User feedback and system status |
+| **WiFi / MQTT** | 🚧 Stub | Remote telemetry and device communication |
 
-These goals reflect typical constraints of **medical and safety-oriented embedded systems**.
-
----
-
-## RTOS Architecture
-
-The firmware uses **FreeRTOS (CMSIS-RTOS v2)** and is organized into independent tasks:
-
-| Task            |status | Responsibility                                 |
-|-----------------|-------|------------------------------------------------|
-| PPG Processing  |Partially Implemented| Real-time filtering and signal processing  |
-| Battery Monitor |Implemented| Battery voltage monitoring and alarm       |
-| Data Logger | Stub | SD card logging via SPI |
-| Display | Stub | User feedback and status visualization |
-| WiFi / MQTT | Stub | Remote telemetry and device communication |
----
-### Synchronization Model
-
-- A hardware timer (TIM9) defines the system sampling rate (100 Hz)
-- Interrupt Service Routines (ISRs) are kept minimal and event-driven
-- Data exchange between ISRs and tasks is handled using FreeRTOS queues
-- Tasks rely exclusively on RTOS blocking primitives (queues, semaphores, delays)
-- No busy-waiting or active polling is used
-
-This design ensures bounded latency, predictable execution timing,
-and efficient CPU utilization.
-
+Tasks communicate exclusively through **RTOS primitives** (queues, semaphores), avoiding shared-state coupling.
 
 ---
 
-## Interrupt Design Principles
+## ⏱ Timing and Synchronization Strategy
 
-Interrupt Service Routines are designed according to the following rules:
+- **TIM9** defines the global sampling rate (100 Hz)
+- Interrupt Service Routines are used only for:
+  - sample framing
+  - event notification
+  - restarting non-blocking peripheral transfers (DMA / UART)
+- All signal processing and system logic runs in **task context**
+- Tasks block on RTOS objects (queues, semaphores, delays)
+- No busy-waiting or polling is used
 
-- No signal processing or algorithmic computation inside ISRs
-- No blocking RTOS calls inside ISRs
-- No dynamic memory allocation inside ISRs
-- ISRs are limited to:
-  - minimal data framing
-  - pushing data to RTOS queues
-  - releasing semaphores or notifying tasks
-  - restarting non-blocking peripheral transfers (e.g. DMA)
-
-All ISR operations are constant-time and non-blocking.
+This model guarantees **deterministic execution**, efficient CPU usage, and scalability as system complexity grows.
 
 ---
 
-## Simulation-Driven Development
+## 🚦 Interrupt Design Philosophy
 
-To decouple firmware development from sensor availability, the system supports a **simulation mode**:
+Interrupts are deliberately kept minimal to preserve system stability:
 
-- The MCU remains the **timing master**
-- Synthetic PPG samples are generated externally using Python
+- No algorithmic processing inside ISRs
+- No blocking RTOS calls
+- No dynamic memory allocation
+- Constant-time execution only
+
+ISRs act as **event sources**, while all decision-making and computation is handled by RTOS tasks.
+
+---
+
+## 🧪 Simulation-Driven Development
+
+To support early development and testing, the firmware includes a **simulation mode** that mirrors the real hardware execution flow:
+
+- The MCU remains the timing master
+- Synthetic PPG samples are generated in Python
 - UART is used as a virtual ADC interface
-- The same RTOS tasks and processing pipeline are used in both
-  simulation and real hardware mode
+- The same RTOS tasks and processing pipeline are executed in both modes
 
-This allowed early validation of:
+This allows validation of:
 - task scheduling
 - queue sizing
 - real-time behavior
 - system stability under load
 
+without requiring physical sensors.
+
 ---
 
-## Timing & Performance
+## 📊 Timing & Performance Summary
 
 - Sampling frequency: **100 Hz (hardware-timed)**
-- Processing rate: 1 sample per tick
-- Queue depth sized to absorb jitter
+- Processing: **1 sample per RTOS cycle**
+- Queue depth sized to absorb transient jitter
 - No missed samples observed during simulation
 
 The architecture is ready for future integration of:
@@ -131,6 +123,16 @@ The architecture is ready for future integration of:
 ---
 
 ## Getting Started
+
+## MCU Pin Configuration (Summary)
+
+| Peripheral | Pins | Notes |
+|----------|------|------|
+| UART (Simulation) | PA3 | Virtual ADC interface |
+| Timer | TIM9 | 100 Hz sampling |
+| R PWM| PA6| Red light modulation|
+|IR PWM| PA5| Infrared light modulation|
+|Battery alarm| PA7 | External led GPIO |
 
 ### Build the STM32 Project
 
@@ -327,35 +329,19 @@ HR_SPO2_computing_dev/
 
 ```
 
----
+## 📌 Project Scope & Status
 
-## 🚧 Project Status
+This project is intentionally structured as a **work-in-progress embedded system**.
 
 Current focus:
-- Firmware architecture
-- Timing control
+- RTOS architecture
+- Deterministic timing
 - Simulation framework
-- Modular processing pipeline
+- Modular firmware design
 
-Planned next steps:
-- Heart Rate computation
-- SpO₂ computation
-- Improved digital filtering
-- Sensor integration
-- Data logging refinement
-
----
-
-## 📌 Project Scope and Current Status
-
-This project is intentionally structured as a **work-in-progress system**.
-The focus is on:
-- Embedded architecture
-- RTOS usage
-- Timing correctness
-- Testability and scalability
-
-Biomedical algorithms will be refined in later stages.
+Out of scope (for now):
+- Clinical validation
+- Final HR / SpO₂ algorithms
 
 ---
 
