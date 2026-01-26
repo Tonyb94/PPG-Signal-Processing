@@ -53,7 +53,13 @@ last_window_end_time = None
 while True:
     c = ser.read(1)
 
-    # ===================== MCU START =====================
+    # ===== END CONDITION (STATE-DRIVEN) =====
+    if simulation_started and window_idx >= N_WINDOWS:
+        elapsed = time.time() - start_time
+        print(f"Simulation completed in {elapsed:.2f} s")
+        break
+
+    # ===== MCU START =====
     if c == b'C' and not simulation_started:
         simulation_started = True
         window_idx = 0
@@ -62,22 +68,13 @@ while True:
         last_window_end_time = None
         print("MCU start received → simulation armed")
 
-    # ===================== MCU REQUEST SAMPLE =====================
+    # ===== MCU REQUEST SAMPLE =====
     elif c == b'R' and simulation_started:
 
-        # End of all windows
-        if window_idx >= N_WINDOWS:
-            elapsed = time.time() - start_time
-            print(f"Simulation completed in {elapsed:.2f} s")
-            simulation_started = False
-            continue
-
-        # Settling time between windows
         if sample_idx == 0 and last_window_end_time is not None:
             if time.time() - last_window_end_time < SETTLING_TIME:
                 continue
 
-        # Send sample
         val = windows[window_idx][sample_idx]
         ser.write(bytes([
             val & 0xFF,
@@ -86,8 +83,8 @@ while True:
 
         sample_idx += 1
 
-        # End of window
         if sample_idx >= samples_per_window:
             sample_idx = 0
             window_idx += 1
             last_window_end_time = time.time()
+
