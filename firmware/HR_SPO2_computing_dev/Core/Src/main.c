@@ -57,16 +57,16 @@ const osThreadAttr_t defaultTask_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
 };
 
-/* Definitions for H2_SPO2_calc_ta */
-osThreadId_t H2_SPO2_calc_taHandle;
-uint32_t H2_SPO2_calc_taskBuffer[1024];
-osStaticThreadDef_t H2_SPO2_calc_taskControlBlock;
-const osThreadAttr_t H2_SPO2_calc_ta_attributes = {
-  .name = "H2_SPO2_calc_ta",
-  .cb_mem = &H2_SPO2_calc_taskControlBlock,
-  .cb_size = sizeof(H2_SPO2_calc_taskControlBlock),
-  .stack_mem = &H2_SPO2_calc_taskBuffer[0],
-  .stack_size = sizeof(H2_SPO2_calc_taskBuffer),
+/* Definitions for HR_SPO2_calc_ta */
+osThreadId_t HR_SPO2_calc_taHandle;
+uint32_t HR_SPO2_calc_taskBuffer[1024];
+osStaticThreadDef_t HR_SPO2_calc_taskControlBlock;
+const osThreadAttr_t HR_SPO2_calc_ta_attributes = {
+  .name = "HR_SPO2_calc_ta",
+  .cb_mem = &HR_SPO2_calc_taskControlBlock,
+  .cb_size = sizeof(HR_SPO2_calc_taskControlBlock),
+  .stack_mem = &HR_SPO2_calc_taskBuffer[0],
+  .stack_size = sizeof(HR_SPO2_calc_taskBuffer),
   .priority = (osPriority_t) osPriorityNormal,
 };
 
@@ -256,7 +256,7 @@ int main(void)
   Start_measureHandle = osSemaphoreNew(1, 0, &Start_measure_attributes);
 
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-  H2_SPO2_calc_taHandle = osThreadNew(Start_HR_SPO2_task, NULL, &H2_SPO2_calc_ta_attributes);
+  HR_SPO2_calc_taHandle = osThreadNew(Start_HR_SPO2_task, NULL, &HR_SPO2_calc_ta_attributes);
   Battery_monitorHandle = osThreadNew(Start_Battery_monitor, NULL, &Battery_monitor_attributes);
   MQTT_publisherHandle = osThreadNew(Start_publisher, NULL, &MQTT_publisher_attributes);
   DataloggerHandle = osThreadNew(Start_Datalogging, NULL, &Datalogger_attributes);
