@@ -104,7 +104,7 @@ void PPG_Start(void)
 
 #ifdef USE_SIMULATION
     uart_ready = 0;
-    HAL_UART_Receive_DMA(&huart2, usart_rx_buffer, BUFFER_SIZE); // <- questa riga
+    HAL_UART_Receive_DMA(&huart2, usart_rx_buffer, BUFFER_SIZE); 
 #endif
 
 }
